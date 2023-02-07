@@ -3,11 +3,13 @@ body {
 }
 .body-grid {
   display: grid;
-  /* grid-template-columns: 260px 1280px 380px;
-  grid-template-rows: 260px 1020px; */
   grid-template-columns: 13fr 64fr 19fr;
   grid-template-rows: 13fr 51fr;
   margin: 0;
   width: 100vw;
   height: 100vh;
+}
+
+.body-grid > div {
+  border: solid black 2px;
 }
