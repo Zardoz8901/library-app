@@ -1,3 +1,37 @@
+/* Rules for sizing the icon. */
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+.material-icons.md-96 {
+  font-size: 96px;
+}
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark {
+  color: rgba(0, 0, 0, 0.54);
+}
+.material-icons.md-dark.md-inactive {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light {
+  color: rgba(255, 255, 255, 1);
+}
+.material-icons.md-light.md-inactive {
+  color: rgba(255, 255, 255, 0.3);
+}
+
 body {
   margin: 0;
 }
@@ -12,4 +46,53 @@ body {
 
 .body-grid > div {
   border: solid black 2px;
+}
+
+.container-names-library {
+  /* flex-box most likely required */
+  display: flex;
+  align-items: end;
+}
+
+.container-names-library > span {
+  flex: auto 0 0;
+  font-size: 5rem;
+  padding-left: 1rem;
+  padding-bottom: 0.2rem;
+}
+
+.container-names-library > span:nth-child(even) {
+  padding-left: 0.75rem;
+}
+
+.container-button {
+  display: flex;
+  align-items: end;
+}
+
+.container-button > span {
+  display: grid;
+  margin: 0px;
+  padding: 0px;
+}
+
+.container-button > span:nth-child(1) {
+  font-size: 5rem;
+  margin: -5px;
+  text-align: center;
+}
+
+.container-button > span:nth-child(2) {
+  position: relative;
+  rotate: 90deg;
+  font-size: 3rem;
+  right: 86px;
+  bottom: 90px;
+}
+
+.container-button > span:nth-child(3) {
+  position: relative;
+  font-size: 5rem;
+  right: 82px;
+  top: 12px;
 }
