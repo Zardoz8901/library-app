@@ -128,12 +128,11 @@ body {
   grid-auto-columns: min-content;
   grid-auto-rows: auto;
   border: black solid 8px;
-  font-size: min(2rem);
-  overflow: scroll;
+  font-size: min(1.6rem);
 }
 
 .book > div {
-  border: rgb(61, 61, 61) solid 2px;
+  border: rgb(0 0 0 / 0.3) double 6px;
   writing-mode: vertical-rl;
 }
 
@@ -147,6 +146,7 @@ body {
 .book-name {
   display: flex;
   align-items: center;
+  justify-content: center;
   font-weight: 600;
 }
 
@@ -154,6 +154,10 @@ body {
   display: flex;
   justify-content: end;
   font-style: italic;
+}
+
+.book > div:nth-child(-n + 2) span {
+  padding: 0.4rem;
 }
 
 .book-pages > span {
@@ -166,6 +170,84 @@ body {
   writing-mode: horizontal-tb;
 }
 
-.outter-rotation {
-  position: relative;
+.book-unread {
+  opacity: 0.5;
+  transform: scale(0.9);
+  transition: 0.4s;
+}
+
+.book-unread:hover {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.read {
+  background: linear-gradient(
+      104deg,
+      rgba(130, 255, 173, 0) 0.9%,
+      rgba(130, 255, 173, 1.25) 2.4%,
+      rgba(130, 255, 173, 0.5) 5.8%,
+      rgba(130, 255, 173, 0.1) 93%,
+      rgba(130, 255, 173, 0.7) 96%,
+      rgba(130, 255, 1732, 0) 98%
+    ),
+    linear-gradient(
+      183deg,
+      rgba(130, 255, 173, 0) 0%,
+      rgba(130, 255, 173, 0.3) 27.9%,
+      rgba(130, 255, 173, 0) 15%
+    );
+  padding: 0.6em 13.7px;
+  margin: 0;
+  border-radius: 7.5px;
+  text-shadow: -12px 12px 9.8px rgba(130, 255, 173, 0.7),
+    21px -18.1px 7.3px rgba(255, 255, 255, 1),
+    -18.1px -27.3px 30px rgba(255, 255, 255, 1);
+}
+
+.unread {
+  background: linear-gradient(
+      104deg,
+      rgba(255, 105, 180, 0) 0.9%,
+      rgba(255, 105, 180, 1.25) 2.4%,
+      rgba(255, 105, 180, 0.5) 5.8%,
+      rgba(255, 105, 180, 0.1) 93%,
+      rgba(255, 105, 180, 0.7) 96%,
+      rgba(255, 105, 180, 0) 98%
+    ),
+    linear-gradient(
+      183deg,
+      rgba(255, 105, 180, 0) 0%,
+      rgba(255, 105, 180, 0.3) 7.9%,
+      rgba(255, 105, 180, 0) 15%
+    );
+  padding: 0.6em 13.7px;
+
+  margin: 0;
+  border-radius: 7.5px;
+  text-shadow: -12px 12px 9.8px rgba(255, 105, 180, 0.4),
+    21px -18.1px 7.3px rgba(255, 255, 255, 1),
+    -18.1px -27.3px 30px rgba(255, 255, 255, 1);
+}
+
+.container-status {
+  writing-mode: vertical-lr;
+  display: flex;
+  align-items: start;
+  justify-content: space-evenly;
+  font-size: 4rem;
+}
+
+.container-status > div > span:nth-child(2) {
+  display: inline-block;
+  margin: 1rem;
+  padding: 2rem;
+}
+
+.read-color {
+  background-color: rgb(130, 255, 173);
+}
+
+.unread-color {
+  background-color: rgb(255, 105, 180);
 }
