@@ -22,10 +22,20 @@
         <span>Library</span>
       </div>
       <div class="container-button">
-        <span class="material-icons md-96">add_box</span>
+        <img
+          src="assets/square-plus.svg"
+          sizes="1rem"
+          class="button button-open"
+        />
         <span>Add</span>
         <span>Book</span>
       </div>
+      <dialog class="modal add-book" id="modal">
+        <fieldset>
+          <legend>Add a book to your library!</legend>
+        </fieldset>
+        <button class="button button-close">Submit</button>
+      </dialog>
       <div class="spacer-bottom"></div>
       <div class="container-bookshelf">
         <div class="book book-unread">

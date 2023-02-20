@@ -83,22 +83,24 @@ body {
   padding-bottom: 1rem;
 }
 
-.container-button > span {
+.container-button > div + span {
   display: grid;
   margin: 0px;
   padding: 0px;
 }
 
-.container-button > span:nth-child(1) {
+.container-button > div {
+  background-color: black;
   font-size: 5rem;
-  margin: -5px;
+  margin: 0;
   text-align: center;
 }
 
 .container-button > span:nth-child(2) {
   position: relative;
-  rotate: 90deg;
+  writing-mode: vertical-lr;
   font-size: 3rem;
+  padding-bottom: 0.6rem;
   right: 86px;
   bottom: 90px;
 }
@@ -106,7 +108,8 @@ body {
 .container-button > span:nth-child(3) {
   position: relative;
   font-size: 5rem;
-  right: 82px;
+  padding-left: 0.6rem;
+  right: 52px;
   top: 12px;
 }
 
@@ -128,7 +131,7 @@ body {
   grid-auto-columns: min-content;
   grid-auto-rows: auto;
   border: black solid 8px;
-  font-size: min(1.6rem);
+  font-size: 1.6rem;
 }
 
 .book > div {
@@ -172,7 +175,7 @@ body {
 
 .book-unread {
   opacity: 0.5;
-  transform: scale(0.9);
+  transform: scale(0.96);
   transition: 0.4s;
 }
 
@@ -199,7 +202,6 @@ body {
     );
   padding: 0.6em 13.7px;
   margin: 0;
-  border-radius: 7.5px;
   text-shadow: -12px 12px 9.8px rgba(130, 255, 173, 0.7),
     21px -18.1px 7.3px rgba(255, 255, 255, 1),
     -18.1px -27.3px 30px rgba(255, 255, 255, 1);
@@ -224,7 +226,6 @@ body {
   padding: 0.6em 13.7px;
 
   margin: 0;
-  border-radius: 7.5px;
   text-shadow: -12px 12px 9.8px rgba(255, 105, 180, 0.4),
     21px -18.1px 7.3px rgba(255, 255, 255, 1),
     -18.1px -27.3px 30px rgba(255, 255, 255, 1);
@@ -250,4 +251,42 @@ body {
 
 .unread-color {
   background-color: rgb(255, 105, 180);
+}
+
+.form-container {
+  visibility: visible;
+  position: relative;
+  width: 200px;
+}
+
+.button-open {
+  width: 5rem;
+  transition: ease-in-out 0.3s;
+}
+
+.button-open:hover {
+  transform: rotate(90deg);
+}
+
+.button-open:active {
+  color: red;
+}
+
+.add-book {
+  width: 28rem;
+  height: 25rem;
+  font-size: 3rem;
+}
+
+.button-close {
+  font-size: 2rem;
+  width: 8rem;
+  height: 5rem;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
