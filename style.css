@@ -268,23 +268,81 @@ body {
   transform: rotate(90deg);
 }
 
-.button-open:active {
-  color: red;
-}
-
 .add-book {
   width: 28rem;
   height: 25rem;
   font-size: 3rem;
 }
 
+fieldset {
+  display: flex;
+  flex-direction: column;
+}
+
+dialog > fieldset > div {
+  display: grid;
+  justify-content: center;
+  grid-auto-columns: 2fr;
+  grid-auto-rows: 1fr;
+}
+
+fieldset > div {
+  padding: 0.2rem 3rem;
+}
+
+fieldset > div > label {
+  padding-top: 0.4rem;
+}
+
+input {
+  border: 3px solid black;
+}
+
+fieldset > fieldset {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  grid-template-columns: 2fr;
+  padding: 1rem;
+}
+
+fieldset > fieldset > div > label {
+  padding: 1rem;
+}
+
+input[type="radio"] {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  top: 2px;
+}
+
+input[type="text"] {
+  font-size: 2.2rem;
+  padding: 0.4rem;
+}
+
+legend {
+  padding: 1rem;
+  padding-top: 2rem;
+}
+
+label {
+  font-size: 2.6rem;
+}
+
 .button-close {
   font-size: 2rem;
-  width: 8rem;
+  margin: 1rem;
+  width: 9rem;
   height: 5rem;
+  align-self: center;
 }
 
 .modal {
+  width: 40vw;
+  height: fit-content;
   position: fixed;
   top: 50%;
   left: 50%;

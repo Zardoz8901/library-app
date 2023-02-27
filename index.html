@@ -22,19 +22,36 @@
         <span>Library</span>
       </div>
       <div class="container-button">
-        <img
-          src="assets/square-plus.svg"
-          sizes="1rem"
-          class="button button-open"
-        />
+        <img src="assets/square-plus.svg" class="button button-open" />
         <span>Add</span>
         <span>Book</span>
       </div>
       <dialog class="modal add-book" id="modal">
         <fieldset>
           <legend>Add a book to your library!</legend>
+          <div>
+            <label for="author">Author</label><input type="text" id="author" />
+          </div>
+          <div>
+            <label for="title">Title</label><input type="text" id="title" />
+          </div>
+          <div>
+            <label for="pages">Page Count</label
+            ><input type="text" id="pages" />
+          </div>
+          <fieldset>
+            <legend>Read or unread?</legend>
+            <div>
+              <label for="read">Read</label
+              ><input name="book-progress" type="radio" id="read" />
+            </div>
+            <div>
+              <label for="unread">Unread</label
+              ><input name="book-progress" type="radio" id="unread" />
+            </div>
+          </fieldset>
+          <button class="button button-close">Submit</button>
         </fieldset>
-        <button class="button button-close">Submit</button>
       </dialog>
       <div class="spacer-bottom"></div>
       <div class="container-bookshelf">
