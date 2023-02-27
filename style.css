@@ -310,6 +310,9 @@ fieldset > fieldset {
 fieldset > fieldset > div > label {
   padding: 1rem;
 }
+fieldset > fieldset > div {
+  padding-bottom: 1.6rem;
+}
 
 input[type="radio"] {
   position: relative;
@@ -334,7 +337,7 @@ label {
 
 .button-close {
   font-size: 2rem;
-  margin: 1rem;
+  margin: 1.6rem;
   width: 9rem;
   height: 5rem;
   align-self: center;
