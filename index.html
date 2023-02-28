@@ -28,7 +28,9 @@
       </div>
       <dialog class="modal add-book" id="modal">
         <fieldset>
-          <legend>Add a book to your library!</legend>
+          <div class="legend-wrap">
+            <legend>Add a book to your library!</legend>
+          </div>
           <div>
             <label for="author">Author</label><input type="text" id="author" />
           </div>
@@ -40,7 +42,6 @@
             ><input type="text" id="pages" />
           </div>
           <fieldset>
-            <legend>Read or unread?</legend>
             <div>
               <label for="read">Read</label
               ><input name="book-progress" type="radio" id="read" />

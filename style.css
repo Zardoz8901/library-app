@@ -166,9 +166,6 @@ body {
 .book-pages > span {
   font-size: 2rem;
   padding: 0.2rem;
-  display: flex;
-  flex-shrink: 1;
-  justify-content: center;
   margin: 0 0.5rem;
   writing-mode: horizontal-tb;
 }
@@ -277,6 +274,7 @@ body {
 fieldset {
   display: flex;
   flex-direction: column;
+  border: 0;
 }
 
 dialog > fieldset > div {
@@ -304,7 +302,7 @@ fieldset > fieldset {
   justify-content: center;
   text-align: center;
   grid-template-columns: 2fr;
-  padding: 1rem;
+  padding: 2rem 2rem 0;
 }
 
 fieldset > fieldset > div > label {
@@ -326,9 +324,12 @@ input[type="text"] {
   padding: 0.4rem;
 }
 
-legend {
+.legend-wrap {
+  align-items: center;
+  display: flex;
   padding: 1rem;
   padding-top: 2rem;
+  position: relative;
 }
 
 label {
@@ -338,7 +339,7 @@ label {
 .button-close {
   font-size: 2rem;
   margin: 1.6rem;
-  width: 9rem;
+  width: 10rem;
   height: 5rem;
   align-self: center;
 }
@@ -350,4 +351,8 @@ label {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.modal::backdrop {
+  background: rgb(0 0 0 / 0.4);
 }
