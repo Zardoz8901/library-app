@@ -102,29 +102,28 @@ body {
   padding-bottom: 1rem;
 }
 
-.container-button > div + span {
+.container-button > span {
   display: grid;
   margin: 0px;
   padding: 0px;
 }
 
-.container-button > div {
-  background-color: black;
+.container-button {
   font-size: 5rem;
   margin: 0;
   text-align: center;
 }
 
-.container-button > span:nth-child(2) {
+.container-button > span:nth-child(3) {
   position: relative;
   writing-mode: vertical-lr;
   font-size: 3rem;
-  padding-bottom: 0.6rem;
+  padding-bottom: 0.2rem;
   right: 86px;
   bottom: 90px;
 }
 
-.container-button > span:nth-child(3) {
+.container-button > span:nth-child(4) {
   position: relative;
   font-size: 5rem;
   padding-left: 0.6rem;
@@ -281,6 +280,7 @@ body {
 
 .button-open {
   width: 5rem;
+  border-radius: 10px;
   transition: ease-in-out 0.3s;
 }
 
