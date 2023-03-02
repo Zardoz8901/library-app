@@ -391,3 +391,7 @@ label {
 .modal::backdrop {
   background: rgb(0 0 0 / 0.4);
 }
+
+.hidden-book {
+  display: none;
+}

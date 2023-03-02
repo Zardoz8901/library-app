@@ -1,4 +1,4 @@
-/* const Library = [];
+const Library = [];
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -11,7 +11,7 @@ const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, true);
 
 console.log(theHobbit);
 
-function addBookToLibrary() {} */
+function addBookToLibrary() {}
 
 const modal = document.querySelector("#modal");
 const openModal = document.querySelector(".button-open");
@@ -24,3 +24,7 @@ openModal.addEventListener("click", () => {
 closeModal.addEventListener("click", () => {
   modal.close();
 });
+
+const book = document.querySelector(".book > div > span");
+
+console.log(book);
