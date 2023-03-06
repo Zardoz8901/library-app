@@ -46,22 +46,32 @@
           <fieldset>
             <div>
               <label for="read">Read</label
-              ><input name="book-progress" type="radio" id="read" />
+              ><input
+                name="book-progress"
+                type="radio"
+                id="read"
+                value="read"
+              />
             </div>
             <div>
               <label for="unread">Unread</label
-              ><input name="book-progress" type="radio" id="unread" />
+              ><input
+                name="book-progress"
+                type="radio"
+                id="unread"
+                value="unread"
+              />
             </div>
           </fieldset>
-          <button class="button button-close">Submit</button>
+          <button id="submit" class="button button-close">Submit</button>
         </fieldset>
       </dialog>
       <div class="spacer-bottom"></div>
       <div class="container-bookshelf">
-        <div class="hidden-book">
+        <div id="book" class="hidden-book">
           <div class="book">
             <div class="book-author"><span></span></div>
-            <div class="book-name">
+            <div class="book-title">
               <span></span>
             </div>
             <div class="book-pages"><span></span></div>
@@ -69,7 +79,7 @@
         </div>
         <div class="book">
           <div class="book-author"><span>Yves Meynard</span></div>
-          <div class="book-name">
+          <div class="book-title">
             <span>The Book of Kights</span>
           </div>
           <div class="book-pages read"><span>277</span></div>
