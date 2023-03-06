@@ -10,12 +10,6 @@ closeModal.addEventListener("click", () => {
   modal.close();
 });
 
-const bookAuthor = document.querySelector(".book-author > span");
-
-const bookName = document.querySelector(".book-title > span");
-
-const bookPages = document.querySelector(".book-pages > span");
-
 const bookNode = document.querySelector("#book");
 
 const bookClone = bookNode.cloneNode(true);
@@ -29,8 +23,6 @@ const inputTitle = document.getElementById("title");
 const inputPages = document.getElementById("pages");
 
 const inputRead = document.getElementById("read");
-
-const inputUnread = document.getElementById("unread");
 
 const submitButton = document.getElementById("submit");
 
@@ -52,7 +44,15 @@ function inputToValue() {
   return Library.unshift(book);
 }
 
+function clearInput() {
+  inputAuthor.value = "";
+  inputTitle.value = "";
+  inputPages.value = "";
+  inputRead.checked = "";
+}
+
 submitButton.addEventListener("click", (e) => {
   inputToValue();
   console.log(Library);
+  clearInput();
 });
