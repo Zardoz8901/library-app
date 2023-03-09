@@ -10,7 +10,7 @@ closeModal.addEventListener("click", () => {
   modal.close();
 });
 
-const bookNode = document.querySelector("#book");
+const bookNode = document.querySelector("#book-hidden");
 
 const inputAuthor = document.getElementById("author");
 
@@ -75,29 +75,57 @@ function sortTime() {
   return libraryByTime;
 }
 
+/*
 function InjectBookValue(bookClone) {
   const book = bookClone;
   const { author } = library[0];
   const { title } = library[0];
   const { pages } = library[0];
+  book.classList.add("remove");
+  book.querySelector(".book-author > span").innerText = `${author}`;
+  book.querySelector(".book-title > span").innerText = `${title}`;
+  book.querySelector(".book-pages > span").innerText = `${pages}`;
+}
+*/
+
+function InjectBookValue(author, title, pages, bookClone) {
+  const book = bookClone;
+  this.author = author;
+  this.title = title;
+  this.pages = pages;
+  book.classList.add("remove");
   book.querySelector(".book-author > span").innerText = `${author}`;
   book.querySelector(".book-title > span").innerText = `${title}`;
   book.querySelector(".book-pages > span").innerText = `${pages}`;
 }
 
-function addBook() {
-  const bookClone = bookNode.cloneNode(true);
-  console.log(bookClone);
-  bookClone.id = `book-${Date.now().toString().slice(9)}`;
-  bookClone.classList.remove("hidden-book");
-  InjectBookValue(bookClone);
-  bookNode.before(bookClone);
-}
 function clearInput() {
   inputAuthor.value = "";
   inputTitle.value = "";
   inputPages.value = "";
   inputRead.checked = "";
+}
+
+function removeAllBooks() {
+  const classBook = document.querySelectorAll(".remove");
+  classBook.forEach((e) => e.remove());
+}
+
+function addLibrary() {
+  removeAllBooks();
+  library.forEach((key) => {
+    const { author } = key;
+    const { title } = key;
+    const { pages } = key;
+    const { time } = key;
+    const bookClone = bookNode.cloneNode(true);
+    console.log(bookClone);
+    /* Send input time for book id */
+    bookClone.id = `book-${time.getTime().toString().slice(8)}`;
+    bookClone.classList.remove("book-hidden");
+    bookNode.before(bookClone);
+    InjectBookValue(author, title, pages, bookClone);
+  });
 }
 
 submitButton.addEventListener("click", () => {
@@ -106,6 +134,6 @@ submitButton.addEventListener("click", () => {
   sortTitle();
   sortPages();
   sortTime();
-  addBook();
+  addLibrary();
   clearInput();
 });
