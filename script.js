@@ -12,10 +12,6 @@ closeModal.addEventListener("click", () => {
 
 const bookNode = document.querySelector("#book");
 
-const bookClone = bookNode.cloneNode(true);
-
-console.log(bookClone);
-
 const inputAuthor = document.getElementById("author");
 
 const inputTitle = document.getElementById("title");
@@ -79,6 +75,14 @@ function sortTime() {
   return libraryByTime;
 }
 
+function cloneNode() {
+  const bookClone = bookNode.cloneNode(true);
+  console.log(bookClone);
+  bookClone.id = `book${library.length}`;
+  bookClone.classList.remove("hidden-book");
+  bookNode.after(bookClone);
+}
+
 function clearInput() {
   inputAuthor.value = "";
   inputTitle.value = "";
@@ -92,5 +96,6 @@ submitButton.addEventListener("click", () => {
   sortTitle();
   sortPages();
   sortTime();
+  cloneNode();
   clearInput();
 });
