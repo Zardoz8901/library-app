@@ -75,28 +75,21 @@ function sortTime() {
   return libraryByTime;
 }
 
-/*
-function InjectBookValue(bookClone) {
-  const book = bookClone;
-  const { author } = library[0];
-  const { title } = library[0];
-  const { pages } = library[0];
-  book.classList.add("remove");
-  book.querySelector(".book-author > span").innerText = `${author}`;
-  book.querySelector(".book-title > span").innerText = `${title}`;
-  book.querySelector(".book-pages > span").innerText = `${pages}`;
-}
-*/
-
-function InjectBookValue(author, title, pages, bookClone) {
+function InjectBookValue(author, title, pages, read, bookClone) {
   const book = bookClone;
   this.author = author;
   this.title = title;
   this.pages = pages;
+  this.read = read;
   book.classList.add("remove");
   book.querySelector(".book-author > span").innerText = `${author}`;
   book.querySelector(".book-title > span").innerText = `${title}`;
   book.querySelector(".book-pages > span").innerText = `${pages}`;
+  if (read === true) {
+    book.querySelector(".book-pages").classList.add("read");
+  } else {
+    book.querySelector(".book-pages").classList.add("unread");
+  }
 }
 
 function clearInput() {
@@ -117,14 +110,14 @@ function addLibrary() {
     const { author } = key;
     const { title } = key;
     const { pages } = key;
+    const { read } = key;
     const { time } = key;
     const bookClone = bookNode.cloneNode(true);
-    console.log(bookClone);
     /* Send input time for book id */
     bookClone.id = `book-${time.getTime().toString().slice(8)}`;
     bookClone.classList.remove("book-hidden");
     bookNode.before(bookClone);
-    InjectBookValue(author, title, pages, bookClone);
+    InjectBookValue(author, title, pages, read, bookClone);
   });
 }
 
