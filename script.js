@@ -26,13 +26,20 @@ const inputRead = document.getElementById("read");
 
 const submitButton = document.getElementById("submit");
 
-const Library = [];
+const library = [];
+
+/* Capture input time for book sorting */
+function timeStamp() {
+  const time = new Date(Date.now());
+  return time;
+}
 
 function Book(author, title, pages, read) {
   this.author = author;
   this.title = title;
   this.pages = pages;
   this.read = read;
+  this.time = timeStamp();
 }
 
 function inputToValue() {
@@ -40,8 +47,16 @@ function inputToValue() {
   const title = inputTitle.value;
   const pages = Number(inputPages.value);
   const read = inputRead.checked;
-  const book = new Book(author, title, pages, read);
-  return Library.unshift(book);
+  const bookSum = new Book(author, title, pages, read);
+  return library.unshift(bookSum);
+}
+
+function sortAuthor() {
+  const libraryByAuthor = [...library].sort((a, b) =>
+    a.author.localeCompare(b.author)
+  );
+  console.log(libraryByAuthor);
+  return libraryByAuthor;
 }
 
 function clearInput() {
@@ -51,8 +66,9 @@ function clearInput() {
   inputRead.checked = "";
 }
 
-submitButton.addEventListener("click", (e) => {
+submitButton.addEventListener("click", () => {
   inputToValue();
-  console.log(Library);
+  sortAuthor();
+  console.log(library);
   clearInput();
 });
