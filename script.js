@@ -80,15 +80,15 @@ function InjectBookValue(bookClone) {
   const { author } = library[0];
   const { title } = library[0];
   const { pages } = library[0];
-  book.querySelector(".book-author > span").innerHTML = `${author}`;
-  book.querySelector(".book-title > span").innerHTML = `${title}`;
-  book.querySelector(".book-pages > span").innerHTML = `${pages}`;
+  book.querySelector(".book-author > span").innerText = `${author}`;
+  book.querySelector(".book-title > span").innerText = `${title}`;
+  book.querySelector(".book-pages > span").innerText = `${pages}`;
 }
 
 function addBook() {
   const bookClone = bookNode.cloneNode(true);
   console.log(bookClone);
-  bookClone.id = `book${library.length}`;
+  bookClone.id = `book-${Date.now().toString().slice(9)}`;
   bookClone.classList.remove("hidden-book");
   InjectBookValue(bookClone);
   bookNode.before(bookClone);
