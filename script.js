@@ -59,6 +59,26 @@ function sortAuthor() {
   return libraryByAuthor;
 }
 
+function sortTitle() {
+  const libraryByTitle = [...library].sort((a, b) =>
+    a.title.localeCompare(b.title)
+  );
+  console.log(libraryByTitle);
+  return libraryByTitle;
+}
+
+function sortPages() {
+  const libraryByPages = [...library].sort((a, b) => a.pages - b.pages);
+  console.log(libraryByPages);
+  return libraryByPages;
+}
+
+function sortTime() {
+  const libraryByTime = [...library].sort((a, b) => a.time - b.time);
+  console.log(libraryByTime);
+  return libraryByTime;
+}
+
 function clearInput() {
   inputAuthor.value = "";
   inputTitle.value = "";
@@ -69,6 +89,8 @@ function clearInput() {
 submitButton.addEventListener("click", () => {
   inputToValue();
   sortAuthor();
-  console.log(library);
+  sortTitle();
+  sortPages();
+  sortTime();
   clearInput();
 });
