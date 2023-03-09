@@ -75,14 +75,24 @@ function sortTime() {
   return libraryByTime;
 }
 
-function cloneNode() {
+function InjectBookValue(bookClone) {
+  const book = bookClone;
+  const { author } = library[0];
+  const { title } = library[0];
+  const { pages } = library[0];
+  book.querySelector(".book-author > span").innerHTML = `${author}`;
+  book.querySelector(".book-title > span").innerHTML = `${title}`;
+  book.querySelector(".book-pages > span").innerHTML = `${pages}`;
+}
+
+function addBook() {
   const bookClone = bookNode.cloneNode(true);
   console.log(bookClone);
   bookClone.id = `book${library.length}`;
   bookClone.classList.remove("hidden-book");
-  bookNode.after(bookClone);
+  InjectBookValue(bookClone);
+  bookNode.before(bookClone);
 }
-
 function clearInput() {
   inputAuthor.value = "";
   inputTitle.value = "";
@@ -96,6 +106,6 @@ submitButton.addEventListener("click", () => {
   sortTitle();
   sortPages();
   sortTime();
-  cloneNode();
+  addBook();
   clearInput();
 });
