@@ -128,23 +128,63 @@ submitButton.addEventListener("click", () => {
 
 let authorClick = "";
 
-function authorClicks() {
+function authorClickIncrement() {
   return authorClick++;
 }
 
 document.body.addEventListener("click", (e) => {
   if (e.target.classList.contains("author-listen")) {
-    authorClicks();
+    authorClickIncrement();
     if (authorClick % 2 === 0) {
       removeAllBooks();
       addLibrary(sortAuthor().reverse());
       clearInput();
-      console.log(authorClick);
     } else {
       removeAllBooks();
       addLibrary(sortAuthor());
       clearInput();
-      console.log(authorClick);
+    }
+  }
+});
+
+let titleClick = "";
+
+function titleClickIncrement() {
+  return titleClick++;
+}
+
+document.body.addEventListener("click", (e) => {
+  if (e.target.classList.contains("title-listen")) {
+    titleClickIncrement();
+    if (titleClick % 2 === 0) {
+      removeAllBooks();
+      addLibrary(sortTitle().reverse());
+      clearInput();
+    } else {
+      removeAllBooks();
+      addLibrary(sortTitle());
+      clearInput();
+    }
+  }
+});
+
+let pageClick = "";
+
+function pageClickIncrement() {
+  return pageClick++;
+}
+
+document.body.addEventListener("click", (e) => {
+  if (e.target.classList.contains("page-listen")) {
+    pageClickIncrement();
+    if (pageClick % 2 === 0) {
+      removeAllBooks();
+      addLibrary(sortPages().reverse());
+      clearInput();
+    } else {
+      removeAllBooks();
+      addLibrary(sortPages());
+      clearInput();
     }
   }
 });
