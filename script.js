@@ -51,7 +51,6 @@ function sortAuthor() {
   const libraryByAuthor = [...library].sort((a, b) =>
     a.author.localeCompare(b.author)
   );
-  console.log(libraryByAuthor);
   return libraryByAuthor;
 }
 
@@ -59,19 +58,16 @@ function sortTitle() {
   const libraryByTitle = [...library].sort((a, b) =>
     a.title.localeCompare(b.title)
   );
-  console.log(libraryByTitle);
   return libraryByTitle;
 }
 
 function sortPages() {
   const libraryByPages = [...library].sort((a, b) => a.pages - b.pages);
-  console.log(libraryByPages);
   return libraryByPages;
 }
 
 function sortTime() {
   const libraryByTime = [...library].sort((a, b) => a.time - b.time);
-  console.log(libraryByTime);
   return libraryByTime;
 }
 
@@ -100,20 +96,20 @@ function clearInput() {
 }
 
 function removeAllBooks() {
-  const classBook = document.querySelectorAll(".remove");
-  classBook.forEach((e) => e.remove());
+  const classRemove = document.querySelectorAll(".remove");
+  classRemove.forEach((e) => e.remove());
 }
 
-function addLibrary() {
-  removeAllBooks();
-  library.forEach((key) => {
+function addLibrary(sortMethod) {
+  const ofLibrary = sortMethod;
+  ofLibrary.forEach((key) => {
     const { author } = key;
     const { title } = key;
     const { pages } = key;
     const { read } = key;
     const { time } = key;
     const bookClone = bookNode.cloneNode(true);
-    /* Send input time for book id */
+    /* Inject input time as book id */
     bookClone.id = `book-${time.getTime().toString().slice(8)}`;
     bookClone.classList.remove("book-hidden");
     bookNode.before(bookClone);
@@ -122,11 +118,8 @@ function addLibrary() {
 }
 
 submitButton.addEventListener("click", () => {
+  removeAllBooks();
   inputToValue();
-  sortAuthor();
-  sortTitle();
-  sortPages();
-  sortTime();
-  addLibrary();
+  addLibrary(sortTime());
   clearInput();
 });
