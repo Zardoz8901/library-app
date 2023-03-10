@@ -20,6 +20,8 @@ const inputPages = document.getElementById("pages");
 
 const inputRead = document.getElementById("read");
 
+const bookshelf = document.getElementById("container-bookshelf");
+
 const submitButton = document.getElementById("submit");
 
 const library = [];
@@ -122,4 +124,27 @@ submitButton.addEventListener("click", () => {
   inputToValue();
   addLibrary(sortTime());
   clearInput();
+});
+
+let authorClick = "";
+
+function authorClicks() {
+  return authorClick++;
+}
+
+document.body.addEventListener("click", (e) => {
+  if (e.target.classList.contains("author-listen")) {
+    authorClicks();
+    if (authorClick % 2 === 0) {
+      removeAllBooks();
+      addLibrary(sortAuthor().reverse());
+      clearInput();
+      console.log(authorClick);
+    } else {
+      removeAllBooks();
+      addLibrary(sortAuthor());
+      clearInput();
+      console.log(authorClick);
+    }
+  }
 });
