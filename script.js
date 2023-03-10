@@ -127,64 +127,48 @@ submitButton.addEventListener("click", () => {
 });
 
 let authorClick = "";
+let titleClick = "";
+let pageClick = "";
 
 function authorClickIncrement() {
   return authorClick++;
 }
 
-document.body.addEventListener("click", (e) => {
-  if (e.target.classList.contains("author-listen")) {
-    authorClickIncrement();
-    if (authorClick % 2 === 0) {
-      removeAllBooks();
-      addLibrary(sortAuthor().reverse());
-      clearInput();
-    } else {
-      removeAllBooks();
-      addLibrary(sortAuthor());
-      clearInput();
-    }
-  }
-});
-
-let titleClick = "";
-
 function titleClickIncrement() {
   return titleClick++;
 }
-
-document.body.addEventListener("click", (e) => {
-  if (e.target.classList.contains("title-listen")) {
-    titleClickIncrement();
-    if (titleClick % 2 === 0) {
-      removeAllBooks();
-      addLibrary(sortTitle().reverse());
-      clearInput();
-    } else {
-      removeAllBooks();
-      addLibrary(sortTitle());
-      clearInput();
-    }
-  }
-});
-
-let pageClick = "";
 
 function pageClickIncrement() {
   return pageClick++;
 }
 
+function sortOnClick(methodClickIncrement, methodClick, sortMethod) {
+  methodClickIncrement;
+  if (methodClick % 2 === 0) {
+    removeAllBooks();
+    addLibrary(sortMethod.reverse());
+    clearInput();
+  } else {
+    removeAllBooks();
+    addLibrary(sortMethod);
+    clearInput();
+  }
+}
+
+document.body.addEventListener("click", (e) => {
+  if (e.target.classList.contains("author-listen")) {
+    sortOnClick(authorClickIncrement(), authorClick, sortAuthor());
+  }
+});
+
+document.body.addEventListener("click", (e) => {
+  if (e.target.classList.contains("title-listen")) {
+    sortOnClick(titleClickIncrement(), titleClick, sortTitle());
+  }
+});
+
 document.body.addEventListener("click", (e) => {
   if (e.target.classList.contains("page-listen")) {
-    pageClickIncrement();
-    if (pageClick % 2 === 0) {
-      removeAllBooks();
-      addLibrary(sortPages().reverse());
-      clearInput();
-    } else {
-      removeAllBooks();
-      addLibrary(sortPages());
-      clearInput();
-    }
+    sortOnClick(pageClickIncrement(), pageClick, sortPages());
   }
 });
