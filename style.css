@@ -402,3 +402,16 @@ label {
 .book-hidden {
   display: none;
 }
+
+.clickable {
+  transition: 0.1s ease-in-out;
+}
+
+.clickable:hover {
+  transform: scale(1.02);
+  border: 6px solid rgb(66, 73, 73);
+}
+
+.clickable:active {
+  transform: scale(0.98);
+}

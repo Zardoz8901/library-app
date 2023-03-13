@@ -143,6 +143,7 @@ function pageClickIncrement() {
 }
 
 function sortOnClick(methodClickIncrement, methodClick, sortMethod) {
+  // eslint-disable-next-line no-unused-expressions
   methodClickIncrement;
   if (methodClick % 2 === 0) {
     removeAllBooks();
