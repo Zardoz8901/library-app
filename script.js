@@ -39,6 +39,7 @@ function Book(author, title, pages, read) {
   this.pages = pages;
   this.read = read;
   this.time = timeStamp();
+  this.bookId = timeStamp().getTime().toString().slice(8);
 }
 
 function inputToValue() {
@@ -180,6 +181,10 @@ function restoreText(e) {
     .classList.add("hidden");
 }
 
+function removeBook(e) {
+  e.target.querySelector(".remove").remove();
+}
+
 document.body.addEventListener("click", (e) => {
   if (e.target.classList.contains("author-listen")) {
     sortOnClick(authorClickIncrement(), authorClick, sortAuthor());
@@ -217,5 +222,11 @@ document.body.addEventListener("mouseout", (e) => {
     setTimeout(() => {
       e.target.classList.remove("remove-book");
     }, 800);
+  }
+});
+
+document.body.addEventListener("click", (e) => {
+  if (e.target.classList.contains("remove-prompt")) {
+    removeBook(e);
   }
 });
