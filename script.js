@@ -23,8 +23,6 @@ const inputPages = document.getElementById("pages");
 
 const inputRead = document.getElementById("read");
 
-const bookshelf = document.getElementById("container-bookshelf");
-
 const submitButton = document.getElementById("submit");
 
 const library = [];
@@ -116,7 +114,7 @@ function addLibrary(sortMethod) {
     const bookClone = bookNode.cloneNode(true);
     /* Inject input time as book id */
     bookClone.id = `book-${time.getTime().toString().slice(8)}`;
-    bookClone.classList.remove("book-hidden");
+    bookClone.classList.remove("hidden");
     bookNode.before(bookClone);
     InjectBookValue(author, title, pages, read, bookClone);
   });
@@ -166,6 +164,22 @@ function sortOnClick(methodClickIncrement, methodClick, sortMethod) {
   }
 }
 
+let bombTimer;
+
+function replaceText(e) {
+  e.target.querySelector(".book-title > span").classList.add("hidden");
+  e.target
+    .querySelector(".book-title > span:nth-child(2)")
+    .classList.remove("hidden");
+}
+
+function restoreText(e) {
+  e.target.querySelector(".book-title > span").classList.remove("hidden");
+  e.target
+    .querySelector(".book-title > span:nth-child(2)")
+    .classList.add("hidden");
+}
+
 document.body.addEventListener("click", (e) => {
   if (e.target.classList.contains("author-listen")) {
     sortOnClick(authorClickIncrement(), authorClick, sortAuthor());
@@ -181,5 +195,27 @@ document.body.addEventListener("click", (e) => {
 document.body.addEventListener("click", (e) => {
   if (e.target.classList.contains("page-listen")) {
     sortOnClick(pageClickIncrement(), pageClick, sortPages());
+  }
+});
+
+document.body.addEventListener("mouseover", (e) => {
+  if (e.target.classList.contains("title-listen")) {
+    bombTimer = setTimeout(() => {
+      e.target.classList.add("remove-book");
+      replaceText(e);
+    }, 1300);
+  } else {
+    clearTimeout(bombTimer);
+  }
+});
+
+document.body.addEventListener("mouseout", (e) => {
+  if (e.target.classList.contains("title-listen")) {
+    setTimeout(() => {
+      restoreText(e);
+    }, 100);
+    setTimeout(() => {
+      e.target.classList.remove("remove-book");
+    }, 800);
   }
 });

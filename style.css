@@ -152,6 +152,7 @@ body {
   border: black solid 8px;
   font-size: 1.6rem;
   box-shadow: var(--shadow-elevation-medium);
+  overflow: hidden;
 }
 
 .book > div {
@@ -374,6 +375,9 @@ label {
 button {
   border: 1px solid black;
 }
+img {
+  -webkit-user-drag: none;
+}
 
 button:focus {
   outline: 0;
@@ -415,8 +419,9 @@ button:focus {
   background: rgb(0 0 0 / 0.4);
 }
 
-.book-hidden {
+.hidden {
   display: none;
+  transition: 1s ease-in-out;
 }
 
 .clickable {
@@ -425,7 +430,8 @@ button:focus {
 
 .clickable:hover {
   transform: scale(1.02);
-  border: 6px solid lightslategray;
+  border: 6px solid dimgray;
+  box-shadow: var(--shadow-elevation-medium);
 }
 
 .clickable:active {
@@ -440,4 +446,18 @@ button:focus {
   align-self: center;
   box-shadow: var(--shadow-elevation-medium);
   transition: ease-in 0.05s;
+}
+
+.remove-book {
+  transition-property: color, background-color, font-size;
+  transition-duration: 0.6s;
+}
+
+.remove-book:hover {
+  color: white;
+  background-color: black;
+}
+
+span {
+  pointer-events: none;
 }
