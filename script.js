@@ -1,13 +1,16 @@
 const modal = document.querySelector("#modal");
 const openModal = document.querySelector(".button-open");
-const closeModal = document.querySelector(".button-close");
+const closeModal = document.querySelector(".button-submit");
+const cancelModal = document.querySelector(".button-cancel");
 
 openModal.addEventListener("click", () => {
   modal.showModal();
 });
 
 closeModal.addEventListener("click", () => {
-  modal.close();
+  window.setTimeout(() => {
+    modal.close();
+  }, 70);
 });
 
 const bookNode = document.querySelector("#book-hidden");
@@ -118,6 +121,13 @@ function addLibrary(sortMethod) {
     InjectBookValue(author, title, pages, read, bookClone);
   });
 }
+
+cancelModal.addEventListener("click", () => {
+  window.setTimeout(() => {
+    modal.close();
+    clearInput();
+  }, 70);
+});
 
 submitButton.addEventListener("click", () => {
   removeAllBooks();

@@ -31,7 +31,10 @@
       <dialog class="modal add-book" id="modal">
         <fieldset>
           <div class="legend-wrap">
-            <legend>Add a book to your library!</legend>
+            <legend id="top-legend">Add a book to your library!</legend>
+            <button class="button button-cancel">
+              <img src="/assets/close.svg" alt="" />
+            </button>
           </div>
           <div>
             <label for="author">Author</label><input type="text" id="author" />
@@ -63,7 +66,7 @@
               />
             </div>
           </fieldset>
-          <button id="submit" class="button button-close">Submit</button>
+          <button id="submit" class="button button-submit">Submit</button>
         </fieldset>
       </dialog>
       <div class="spacer-bottom"></div>
