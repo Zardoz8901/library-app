@@ -25,6 +25,8 @@ const inputRead = document.getElementById("read");
 
 const submitButton = document.getElementById("submit");
 
+const bookShelf = document.getElementById("container-bookshelf");
+
 const library = [];
 
 /* Capture input time for book sorting */
@@ -182,28 +184,35 @@ function restoreText(e) {
 }
 
 function removeBook(e) {
-  e.target.querySelector(".remove").remove();
+  const nodeId = e.target.parentNode.parentNode.remove();
+  console.log(nodeId);
 }
 
-document.body.addEventListener("click", (e) => {
+bookShelf.addEventListener("click", (e) => {
   if (e.target.classList.contains("author-listen")) {
     sortOnClick(authorClickIncrement(), authorClick, sortAuthor());
   }
 });
 
-document.body.addEventListener("click", (e) => {
-  if (e.target.classList.contains("title-listen")) {
+bookShelf.addEventListener("click", (e) => {
+  if (
+    e.target.classList.contains("title-listen") &&
+    !e.target.classList.contains("remove-book")
+  ) {
     sortOnClick(titleClickIncrement(), titleClick, sortTitle());
+    console.log(1);
+  } else {
+    removeBook(e);
   }
 });
 
-document.body.addEventListener("click", (e) => {
+bookShelf.addEventListener("click", (e) => {
   if (e.target.classList.contains("page-listen")) {
     sortOnClick(pageClickIncrement(), pageClick, sortPages());
   }
 });
 
-document.body.addEventListener("mouseover", (e) => {
+bookShelf.addEventListener("mouseover", (e) => {
   if (e.target.classList.contains("title-listen")) {
     bombTimer = setTimeout(() => {
       e.target.classList.add("remove-book");
@@ -214,7 +223,7 @@ document.body.addEventListener("mouseover", (e) => {
   }
 });
 
-document.body.addEventListener("mouseout", (e) => {
+bookShelf.addEventListener("mouseout", (e) => {
   if (e.target.classList.contains("title-listen")) {
     setTimeout(() => {
       restoreText(e);
@@ -222,11 +231,5 @@ document.body.addEventListener("mouseout", (e) => {
     setTimeout(() => {
       e.target.classList.remove("remove-book");
     }, 800);
-  }
-});
-
-document.body.addEventListener("click", (e) => {
-  if (e.target.classList.contains("remove-prompt")) {
-    removeBook(e);
   }
 });
