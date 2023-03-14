@@ -183,9 +183,24 @@ function restoreText(e) {
     .classList.add("hidden");
 }
 
+function bookNodeId(e) {
+  const node = e.target.parentNode.parentNode;
+  return node;
+}
+
 function removeBook(e) {
-  const nodeId = e.target.parentNode.parentNode.remove();
+  const node = bookNodeId(e);
+  const nodeRemove = node.remove();
+}
+
+function removeFromLibrary(e) {
+  const nodeId = bookNodeId(e).id.slice(5);
+  library.splice(
+    library.findIndex((item) => item.bookId === nodeId),
+    1
+  );
   console.log(nodeId);
+  console.log(library);
 }
 
 bookShelf.addEventListener("click", (e) => {
@@ -200,9 +215,9 @@ bookShelf.addEventListener("click", (e) => {
     !e.target.classList.contains("remove-book")
   ) {
     sortOnClick(titleClickIncrement(), titleClick, sortTitle());
-    console.log(1);
-  } else {
+  } else if (e.target.classList.contains("remove-book")) {
     removeBook(e);
+    removeFromLibrary(e);
   }
 });
 
