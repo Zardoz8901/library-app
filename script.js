@@ -199,8 +199,6 @@ function removeFromLibrary(e) {
     library.findIndex((item) => item.bookId === nodeId),
     1
   );
-  console.log(nodeId);
-  console.log(library);
 }
 
 bookShelf.addEventListener("click", (e) => {

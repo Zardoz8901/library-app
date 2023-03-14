@@ -272,12 +272,28 @@ body {
 
 .read-color {
   background-color: rgb(130, 255, 173);
-  box-shadow: var(--shadow-elevation-high);
 }
 
 .unread-color {
   background-color: rgb(255, 105, 180);
+}
+
+.read-color,
+.unread-color {
   box-shadow: var(--shadow-elevation-high);
+  transition: 0.1s ease-in-out;
+}
+
+.read-color:hover,
+.unread-color:hover {
+  padding: -2px;
+  outline: 4px solid dimgray;
+}
+
+.read-color:active,
+.unread-color:active {
+  transform: scale(0.96);
+  box-shadow: var(--shadow-elevation-low);
 }
 
 .form-container {
@@ -458,6 +474,8 @@ button:focus {
   background-color: black;
 }
 
-span {
+.book-author > span,
+.book-title > span,
+.book-pages > span {
   pointer-events: none;
 }
