@@ -92,6 +92,10 @@ body {
   align-items: flex-start;
 }
 
+.container-names-library > span:first-child {
+  font-style: italic;
+}
+
 .container-names-library > span:focus-visible {
   outline: none;
 }
