@@ -84,11 +84,16 @@ body {
 }
 
 .container-names-library > span {
+  caret-shape: block;
   margin-bottom: -14px;
   font-size: 5rem;
   padding-bottom: 0.2rem;
   flex-shrink: 1;
   align-items: flex-start;
+}
+
+.container-names-library > span:focus-visible {
+  outline: none;
 }
 
 .container-names-library > span:nth-child(even) {
@@ -153,6 +158,7 @@ body {
   font-size: 1.6rem;
   box-shadow: var(--shadow-elevation-medium);
   overflow: hidden;
+  transition: 0.4s ease-in-out;
 }
 
 .book > div {
@@ -197,13 +203,13 @@ body {
   writing-mode: horizontal-tb;
 }
 
-.book-unread {
-  opacity: 0.5;
+.book-obscure {
+  opacity: 0.3;
   transform: scale(0.96);
-  transition: 0.4s;
+  transition: 0.3s ease-in-out;
 }
 
-.book-unread:hover {
+.book-obscure:hover {
   opacity: 1;
   transform: scale(1);
   transform: rotate(0.0001deg);

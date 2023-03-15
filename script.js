@@ -1,3 +1,7 @@
+window.onload = function () {
+  document.getElementById("name").focus();
+};
+
 const modal = document.querySelector("#modal");
 const openModal = document.querySelector(".button-open");
 const closeModal = document.querySelector(".button-submit");
@@ -26,6 +30,10 @@ const inputRead = document.getElementById("read");
 const submitButton = document.getElementById("submit");
 
 const bookShelf = document.getElementById("container-bookshelf");
+
+const readButton = document.querySelector(".read-color");
+
+const unreadButton = document.querySelector(".unread-color");
 
 const library = [];
 
@@ -153,6 +161,14 @@ function pageClickIncrement() {
   return pageClick++;
 }
 
+function readClickIncrement() {
+  return readClick++;
+}
+
+function unreadClickIncrement() {
+  return unreadClick++;
+}
+
 function sortOnClick(methodClickIncrement, methodClick, sortMethod) {
   // eslint-disable-next-line no-unused-expressions
   methodClickIncrement;
@@ -185,6 +201,7 @@ function restoreText(e) {
 
 function bookNodeId(e) {
   const node = e.target.parentNode.parentNode;
+  console.log(e);
   return node;
 }
 
@@ -244,5 +261,65 @@ bookShelf.addEventListener("mouseout", (e) => {
     setTimeout(() => {
       e.target.classList.remove("remove-book");
     }, 800);
+  }
+});
+
+let unreadObscure = false;
+let readObscure = false;
+
+function containsRead(read) {
+  read.forEach((item) => {
+    if (item.parentNode.classList.contains("book-obscure")) {
+      readObscure = true;
+    } else if (!item.parentNode.classList.contains("book-obscure")) {
+      readObscure = false;
+    }
+  });
+  return unreadObscure;
+}
+
+function containsUnread(unread) {
+  unread.forEach((item) => {
+    if (item.parentNode.classList.contains("book-obscure")) {
+      unreadObscure = true;
+    } else if (!item.parentNode.classList.contains("book-obscure")) {
+      unreadObscure = false;
+    }
+  });
+  return unreadObscure;
+}
+
+function addObscure(readState) {
+  readState.forEach((item) => {
+    item.parentNode.classList.add("book-obscure");
+  });
+}
+
+function removeObscure(readState) {
+  readState.forEach((item) => {
+    item.parentNode.classList.remove("book-obscure");
+  });
+}
+
+// Obscure unread books and highlight read
+readButton.addEventListener("click", () => {
+  const read = document.body.querySelectorAll(".read");
+  const unread = document.body.querySelectorAll(".unread");
+  containsUnread(unread);
+  removeObscure(read);
+  addObscure(unread);
+  if (unreadObscure === true) {
+    removeObscure(unread);
+  }
+});
+
+unreadButton.addEventListener("click", () => {
+  const read = document.body.querySelectorAll(".read");
+  const unread = document.body.querySelectorAll(".unread");
+  containsRead(read);
+  addObscure(read);
+  removeObscure(unread);
+  if (readObscure === true) {
+    removeObscure(read);
   }
 });
