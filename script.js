@@ -230,6 +230,13 @@ bookShelf.addEventListener("click", (e) => {
     !e.target.classList.contains("remove-book")
   ) {
     sortOnClick(titleClickIncrement(), titleClick, sortTitle());
+  }
+});
+
+bookShelf.addEventListener("click", (e) => {
+  // make exception for demo book so next click doesnt remove library object
+  if (e.target.classList.contains("library-except")) {
+    removeBook(e);
   } else if (e.target.classList.contains("remove-book")) {
     removeBook(e);
     removeFromLibrary(e);
@@ -260,7 +267,7 @@ bookShelf.addEventListener("mouseout", (e) => {
     }, 100);
     setTimeout(() => {
       e.target.classList.remove("remove-book");
-    }, 800);
+    }, 400);
   }
 });
 
