@@ -37,7 +37,9 @@ const unreadButton = document.querySelector(".unread-color");
 
 const library = [];
 
-/* Capture input time for book sorting */
+let bombTimer;
+
+// Capture input time for book sorting
 function timeStamp() {
   const time = new Date(Date.now());
   return time;
@@ -123,7 +125,7 @@ function addLibrary(sortMethod) {
     const { read } = key;
     const { time } = key;
     const bookClone = bookNode.cloneNode(true);
-    /* Inject input time as book id */
+    // Inject input time as book id
     bookClone.id = `book-${time.getTime().toString().slice(8)}`;
     bookClone.classList.remove("hidden");
     bookNode.before(bookClone);
@@ -183,8 +185,6 @@ function sortOnClick(methodClickIncrement, methodClick, sortMethod) {
   }
 }
 
-let bombTimer;
-
 function replaceText(e) {
   e.target.querySelector(".book-title > span").classList.add("hidden");
   e.target
@@ -218,6 +218,12 @@ function removeFromLibrary(e) {
   );
 }
 
+function changeReadCondition(e) {
+  const nodeId = bookNodeId(e).id.slice(5);
+  const book = library.find((item) => item.bookId === nodeId);
+  return book;
+}
+
 bookShelf.addEventListener("click", (e) => {
   if (e.target.classList.contains("author-listen")) {
     sortOnClick(authorClickIncrement(), authorClick, sortAuthor());
@@ -235,7 +241,10 @@ bookShelf.addEventListener("click", (e) => {
 
 bookShelf.addEventListener("click", (e) => {
   // make exception for demo book so next click doesnt remove library object
-  if (e.target.classList.contains("library-except")) {
+  if (
+    e.target.classList.contains("library-except") &&
+    e.target.classList.contains("remove-book")
+  ) {
     removeBook(e);
   } else if (e.target.classList.contains("remove-book")) {
     removeBook(e);
@@ -269,6 +278,34 @@ bookShelf.addEventListener("mouseout", (e) => {
       e.target.classList.remove("remove-book");
     }, 400);
   }
+});
+
+bookShelf.addEventListener("contextmenu", (e) => {
+  if (
+    e.target.classList.contains("book-pages") &&
+    e.target.classList.contains("book-pages")
+  ) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+});
+
+// Right click on pages to change read status
+// Add function to change target book value in library
+bookShelf.addEventListener("contextmenu", (e) => {
+  if (e.target.classList.contains("read")) {
+    e.target.classList.remove("read");
+    e.target.classList.add("unread");
+    changeReadCondition(e).read = false;
+    console.log(changeReadCondition(e));
+  } else if (e.target.classList.contains("unread")) {
+    e.target.classList.remove("unread");
+    e.target.classList.add("read");
+    changeReadCondition(e).read = true;
+    console.log(changeReadCondition(e));
+  }
+  e.preventDefault();
+  e.stopPropagation();
 });
 
 let unreadObscure = false;

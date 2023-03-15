@@ -92,7 +92,7 @@ body {
   align-items: flex-start;
 }
 
-.container-names-library > span:first-childgit a {
+.container-names-library > span:first-child {
   font-style: italic;
 }
 
