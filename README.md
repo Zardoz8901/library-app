@@ -1,3 +1,3 @@
 # library-app
 
-Extend the ‘Book’ example from a previous lesson and turn it into a small Library app
+Library app with the capability to add books, and organize books by: author, title, pages, and time added to library.

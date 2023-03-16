@@ -150,13 +150,6 @@ cancelModal.addEventListener("click", () => {
   }, 70);
 });
 
-submitButton.addEventListener("click", () => {
-  removeAllBooks();
-  inputToValue();
-  addLibrary(sortTime());
-  clearInput();
-});
-
 const clickTracker = [
   { method: "author", value: false, time: "" },
   { method: "title", value: false, time: "" },
@@ -169,7 +162,6 @@ function clickInverse(methodKey) {
   clickObject.value = !clickObject.value;
   clickObject.time = new Date().getTime();
   clickTracker.sort((a, b) => a.time - b.time);
-  console.log(clickTracker);
   return clickTracker;
 }
 
@@ -185,6 +177,23 @@ function sortOnClick(methodKey, sortMethod) {
     clearInput();
   }
 }
+
+submitButton.addEventListener("click", () => {
+  const { method } = clickTracker[3];
+  removeAllBooks();
+  inputToValue();
+  if (method === "chrono") {
+    sortOnClick(method, sortTime());
+  } else if (method === "author") {
+    sortOnClick(method, sortAuthor());
+  } else if (method === "title") {
+    sortOnClick(method, sortTitle());
+  } else if (method === "pages") {
+    sortOnClick(method, sortPages());
+  }
+  console.log(method);
+  console.log(library);
+});
 
 function replaceText(e) {
   e.target.querySelector(".book-title > span").classList.add("hidden");
@@ -271,7 +280,6 @@ bookShelf.addEventListener("click", (e) => {
     removeBook(e);
     removeFromLibrary(e);
   }
-  console.log(library);
 });
 
 bookShelf.addEventListener("mouseover", (e) => {
