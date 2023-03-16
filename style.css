@@ -322,24 +322,25 @@ body {
 .time-button {
   width: 5rem;
   border-radius: 10px;
-  transition: ease-in-out 0.3s;
+  transition: ease-in-out 0.1s;
+  box-shadow: var(--shadow-elevation-medium);
 }
+
 .time-button {
   margin-bottom: 0.8rem;
   margin-right: 0.6rem;
 }
 
-.button-open:hover {
-  transform: rotate(90deg);
-  box-shadow: var(--shadow-elevation-medium);
-}
-
-.button-open:active {
-  box-shadow: var(--shadow-elevation-low);
-}
-
+.button-open:hover,
 .time-button:hover {
-  transform: rotate(180deg);
+  box-shadow: var(--shadow-elevation-high);
+  transform: scale(1.02);
+}
+
+.button-open:active,
+.time-button:active {
+  transform: scale(0.96);
+  box-shadow: var(--shadow-elevation-low);
 }
 
 .add-book {

@@ -168,8 +168,8 @@ function clickInverse(methodKey) {
   const clickObject = clickTracker.find((item) => item.method === methodKey);
   clickObject.value = !clickObject.value;
   clickObject.time = new Date().getTime();
-  console.log(clickObject);
-  console.log(clickObject.value);
+  clickTracker.sort((a, b) => a.time - b.time);
+  console.log(clickTracker);
   return clickTracker;
 }
 
