@@ -75,6 +75,12 @@ body {
   border: solid black 2px;
 }
 
+.spacer-top {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+
 .container-names-library {
   /* flex-box most likely required */
   display: flex;
@@ -312,14 +318,28 @@ body {
   width: 200px;
 }
 
-.button-open {
+.button-open,
+.time-button {
   width: 5rem;
   border-radius: 10px;
   transition: ease-in-out 0.3s;
 }
+.time-button {
+  margin-bottom: 0.8rem;
+  margin-right: 0.6rem;
+}
 
 .button-open:hover {
   transform: rotate(90deg);
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+.button-open:active {
+  box-shadow: var(--shadow-elevation-low);
+}
+
+.time-button:hover {
+  transform: rotate(180deg);
 }
 
 .add-book {

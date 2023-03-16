@@ -35,6 +35,8 @@ const readButton = document.querySelector(".read-color");
 
 const unreadButton = document.querySelector(".unread-color");
 
+const timeButton = document.querySelector(".time-button");
+
 const library = [];
 
 let bombTimer;
@@ -54,10 +56,18 @@ function Book(author, title, pages, read) {
   this.bookId = timeStamp().getTime().toString().slice(8);
 }
 
+function ifNaN() {
+  const pages = Number(inputPages.value);
+  if (Number.isNaN(pages)) {
+    return 0;
+  }
+  return pages;
+}
+
 function inputToValue() {
   const author = inputAuthor.value;
   const title = inputTitle.value;
-  const pages = Number(inputPages.value);
+  const pages = ifNaN();
   const read = inputRead.checked;
   const bookSum = new Book(author, title, pages, read);
   return library.unshift(bookSum);
@@ -151,6 +161,7 @@ const clickTracker = [
   { method: "author", value: false, time: "" },
   { method: "title", value: false, time: "" },
   { method: "pages", value: false, time: "" },
+  { method: "chrono", value: false, time: "" },
 ];
 
 function clickInverse(methodKey) {
@@ -164,14 +175,13 @@ function clickInverse(methodKey) {
 
 function sortOnClick(methodKey, sortMethod) {
   const clickObject = clickTracker.find((item) => item.method === methodKey);
-  console.log(clickObject);
-  if (clickObject.value === false) {
-    removeAllBooks();
-    addLibrary(sortMethod.reverse());
-    clearInput();
-  } else if (clickObject.value === true) {
+  if (clickObject.value === true) {
     removeAllBooks();
     addLibrary(sortMethod);
+    clearInput();
+  } else if (clickObject.value === false) {
+    removeAllBooks();
+    addLibrary(sortMethod.reverse());
     clearInput();
   }
 }
@@ -197,7 +207,7 @@ function bookNodeId(e) {
 
 function removeBook(e) {
   const node = bookNodeId(e);
-  const nodeRemove = node.remove();
+  return node.remove();
 }
 
 // Target book index in library
@@ -215,6 +225,12 @@ function changeReadCondition(e) {
   const book = library.find((item) => item.bookId === nodeId);
   return book;
 }
+
+timeButton.addEventListener("click", () => {
+  const method = "chrono";
+  clickInverse(method);
+  sortOnClick(method, sortTime());
+});
 
 bookShelf.addEventListener("click", (e) => {
   if (e.target.classList.contains("author-listen")) {
@@ -243,6 +259,7 @@ bookShelf.addEventListener("click", (e) => {
   }
 });
 
+// Remove books
 bookShelf.addEventListener("click", (e) => {
   // make exception for demo book so next click doesnt remove library object
   if (
@@ -254,6 +271,7 @@ bookShelf.addEventListener("click", (e) => {
     removeBook(e);
     removeFromLibrary(e);
   }
+  console.log(library);
 });
 
 bookShelf.addEventListener("mouseover", (e) => {
@@ -261,7 +279,7 @@ bookShelf.addEventListener("mouseover", (e) => {
     bombTimer = setTimeout(() => {
       e.target.classList.add("remove-book");
       replaceText(e);
-    }, 1300);
+    }, 1100);
   } else {
     clearTimeout(bombTimer);
   }
