@@ -269,7 +269,7 @@ bookShelf.addEventListener("click", (e) => {
 });
 
 // Remove books
-bookShelf.addEventListener("click", (e) => {
+bookShelf.addEventListener("contextmenu", (e) => {
   // make exception for demo book so next click doesnt remove library object
   if (
     e.target.classList.contains("library-except") &&
@@ -287,7 +287,7 @@ bookShelf.addEventListener("mouseover", (e) => {
     bombTimer = setTimeout(() => {
       e.target.classList.add("remove-book");
       replaceText(e);
-    }, 1100);
+    }, 900);
   } else {
     clearTimeout(bombTimer);
   }
