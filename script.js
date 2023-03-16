@@ -1,4 +1,4 @@
-window.onload = function () {
+window.onload = function letName() {
   document.getElementById("name").focus();
 };
 
@@ -147,38 +147,29 @@ submitButton.addEventListener("click", () => {
   clearInput();
 });
 
-let authorClick = "";
-let titleClick = "";
-let pageClick = "";
+const clickTracker = [
+  { method: "author", value: false, time: "" },
+  { method: "title", value: false, time: "" },
+  { method: "pages", value: false, time: "" },
+];
 
-function authorClickIncrement() {
-  return authorClick++;
+function clickInverse(methodKey) {
+  const clickObject = clickTracker.find((item) => item.method === methodKey);
+  clickObject.value = !clickObject.value;
+  clickObject.time = new Date().getTime();
+  console.log(clickObject);
+  console.log(clickObject.value);
+  return clickTracker;
 }
 
-function titleClickIncrement() {
-  return titleClick++;
-}
-
-function pageClickIncrement() {
-  return pageClick++;
-}
-
-function readClickIncrement() {
-  return readClick++;
-}
-
-function unreadClickIncrement() {
-  return unreadClick++;
-}
-
-function sortOnClick(methodClickIncrement, methodClick, sortMethod) {
-  // eslint-disable-next-line no-unused-expressions
-  methodClickIncrement;
-  if (methodClick % 2 === 0) {
+function sortOnClick(methodKey, sortMethod) {
+  const clickObject = clickTracker.find((item) => item.method === methodKey);
+  console.log(clickObject);
+  if (clickObject.value === false) {
     removeAllBooks();
     addLibrary(sortMethod.reverse());
     clearInput();
-  } else {
+  } else if (clickObject.value === true) {
     removeAllBooks();
     addLibrary(sortMethod);
     clearInput();
@@ -201,7 +192,6 @@ function restoreText(e) {
 
 function bookNodeId(e) {
   const node = e.target.parentNode.parentNode;
-  console.log(e);
   return node;
 }
 
@@ -210,6 +200,7 @@ function removeBook(e) {
   const nodeRemove = node.remove();
 }
 
+// Target book index in library
 function removeFromLibrary(e) {
   const nodeId = bookNodeId(e).id.slice(5);
   library.splice(
@@ -218,6 +209,7 @@ function removeFromLibrary(e) {
   );
 }
 
+// Target book values in library
 function changeReadCondition(e) {
   const nodeId = bookNodeId(e).id.slice(5);
   const book = library.find((item) => item.bookId === nodeId);
@@ -226,7 +218,9 @@ function changeReadCondition(e) {
 
 bookShelf.addEventListener("click", (e) => {
   if (e.target.classList.contains("author-listen")) {
-    sortOnClick(authorClickIncrement(), authorClick, sortAuthor());
+    const method = "author";
+    clickInverse(method);
+    sortOnClick(method, sortAuthor());
   }
 });
 
@@ -235,7 +229,17 @@ bookShelf.addEventListener("click", (e) => {
     e.target.classList.contains("title-listen") &&
     !e.target.classList.contains("remove-book")
   ) {
-    sortOnClick(titleClickIncrement(), titleClick, sortTitle());
+    const method = "title";
+    clickInverse(method);
+    sortOnClick(method, sortTitle());
+  }
+});
+
+bookShelf.addEventListener("click", (e) => {
+  if (e.target.classList.contains("page-listen")) {
+    const method = "pages";
+    clickInverse(method);
+    sortOnClick(method, sortPages());
   }
 });
 
@@ -249,12 +253,6 @@ bookShelf.addEventListener("click", (e) => {
   } else if (e.target.classList.contains("remove-book")) {
     removeBook(e);
     removeFromLibrary(e);
-  }
-});
-
-bookShelf.addEventListener("click", (e) => {
-  if (e.target.classList.contains("page-listen")) {
-    sortOnClick(pageClickIncrement(), pageClick, sortPages());
   }
 });
 
@@ -297,12 +295,10 @@ bookShelf.addEventListener("contextmenu", (e) => {
     e.target.classList.remove("read");
     e.target.classList.add("unread");
     changeReadCondition(e).read = false;
-    console.log(changeReadCondition(e));
   } else if (e.target.classList.contains("unread")) {
     e.target.classList.remove("unread");
     e.target.classList.add("read");
     changeReadCondition(e).read = true;
-    console.log(changeReadCondition(e));
   }
   e.preventDefault();
   e.stopPropagation();
