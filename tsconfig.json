@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "outDir": "./",
+    "allowJs": true,
+    "target": "es6"
+  },
+  "include": ["**/*"],
+  "exclude": ["docs", ".css", "index.html"]
+}

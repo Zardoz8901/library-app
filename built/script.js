@@ -26,19 +26,19 @@ const timeButton = document.querySelector(".time-button");
 const library = [];
 let bombTimer;
 // Capture input time for book sorting
-class Book {
-    constructor(author, title, pages, read) {
-        this.author = author;
-        this.title = title;
-        this.pages = pages;
-        this.read = read;
-        this.time = this.timeStamp();
-        this.bookId = this.timeStamp().getTime().toString().slice(8);
+class TimeStamp {
+    constructor() {
+        this.time = new Date(Date.now());
     }
-    timeStamp() {
-        const time = new Date(Date.now());
-        return time;
-    }
+}
+return time;
+function Book(author, title, pages, read) {
+    this.author = author;
+    this.title = title;
+    this.pages = pages;
+    this.read = read;
+    this.time = timeStamp();
+    this.bookId = timeStamp().getTime().toString().slice(8);
 }
 function ifNaN() {
     const pages = Number(inputPages.value);
