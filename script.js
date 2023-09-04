@@ -40,187 +40,238 @@ class Book {
         return time;
     }
 }
-function ifNaN() {
-    const pages = Number(inputPages.value);
-    if (Number.isNaN(pages)) {
-        return 0;
+class InputValue {
+    ifNaN() {
+        const pages = Number(inputPages.value);
+        if (Number.isNaN(pages)) {
+            return 0;
+        }
+        return pages;
     }
-    return pages;
-}
-function inputToValue() {
-    const author = inputAuthor.value;
-    const title = inputTitle.value;
-    const pages = ifNaN();
-    const read = inputRead.checked;
-    const bookSum = new Book(author, title, pages, read);
-    return library.unshift(bookSum);
-}
-function sortAuthor() {
-    const libraryByAuthor = [...library].sort((a, b) => a.author.localeCompare(b.author));
-    return libraryByAuthor;
-}
-function sortTitle() {
-    const libraryByTitle = [...library].sort((a, b) => a.title.localeCompare(b.title));
-    return libraryByTitle;
-}
-function sortPages() {
-    const libraryByPages = [...library].sort((a, b) => a.pages - b.pages);
-    return libraryByPages;
-}
-function sortTime() {
-    const libraryByTime = [...library].sort((a, b) => a.time - b.time);
-    return libraryByTime;
-}
-function InjectBookValue(author, title, pages, read, bookClone) {
-    const book = bookClone;
-    this.author = author;
-    this.title = title;
-    this.pages = pages;
-    this.read = read;
-    book.classList.add("remove");
-    book.querySelector(".book-author > span").innerText = `${author}`;
-    book.querySelector(".book-title > span").innerText = `${title}`;
-    book.querySelector(".book-pages > span").innerText = `${pages}`;
-    if (read === true) {
-        book.querySelector(".book-pages").classList.add("read");
-    }
-    else {
-        book.querySelector(".book-pages").classList.add("unread");
+    inputToValue() {
+        const author = inputAuthor.value;
+        const title = inputTitle.value;
+        const pages = this.ifNaN();
+        const read = inputRead.checked;
+        const bookSum = new Book(author, title, pages, read);
+        return library.unshift(bookSum);
     }
 }
-function clearInput() {
-    inputAuthor.value = "";
-    inputTitle.value = "";
-    inputPages.value = "";
-    inputRead.checked = "";
+class SortMethods {
+    sortAuthor() {
+        const libraryByAuthor = [...library].sort((a, b) => a.author.localeCompare(b.author));
+        return libraryByAuthor;
+    }
+    sortTitle() {
+        const libraryByTitle = [...library].sort((a, b) => a.title.localeCompare(b.title));
+        return libraryByTitle;
+    }
+    sortPages() {
+        const libraryByPages = [...library].sort((a, b) => a.pages - b.pages);
+        return libraryByPages;
+    }
+    sortTime() {
+        const libraryByTime = [...library].sort((a, b) => a.time - b.time);
+        return libraryByTime;
+    }
 }
-function removeAllBooks() {
-    const classRemove = document.querySelectorAll(".remove");
-    classRemove.forEach((e) => e.remove());
+const sort = new SortMethods();
+class CreateDestroyBooks {
+    InjectBookValue(author, title, pages, read, bookClone) {
+        const book = bookClone;
+        this.author = author;
+        this.title = title;
+        this.pages = pages;
+        this.read = read;
+        book.classList.add("remove");
+        book.querySelector(".book-author > span").innerText = `${author}`;
+        book.querySelector(".book-title > span").innerText = `${title}`;
+        book.querySelector(".book-pages > span").innerText = `${pages}`;
+        if (read === true) {
+            book.querySelector(".book-pages").classList.add("read");
+        }
+        else {
+            book.querySelector(".book-pages").classList.add("unread");
+        }
+    }
+    addLibrary(sortMethod) {
+        const ofLibrary = sortMethod;
+        ofLibrary.forEach((key) => {
+            const { author } = key;
+            const { title } = key;
+            const { pages } = key;
+            const { read } = key;
+            const { time } = key;
+            const bookClone = bookNode.cloneNode(true);
+            // Inject input time as book id
+            bookClone.id = `book-${time.getTime().toString().slice(8)}`;
+            bookClone.classList.remove("hidden");
+            bookNode.before(bookClone);
+            this.InjectBookValue(author, title, pages, read, bookClone);
+        });
+    }
+    clearInput() {
+        inputAuthor.value = "";
+        inputTitle.value = "";
+        inputPages.value = "";
+        inputRead.checked = "";
+    }
+    removeAllBooks() {
+        const classRemove = document.querySelectorAll(".remove");
+        classRemove.forEach((e) => e.remove());
+    }
 }
-function addLibrary(sortMethod) {
-    const ofLibrary = sortMethod;
-    ofLibrary.forEach((key) => {
-        const { author } = key;
-        const { title } = key;
-        const { pages } = key;
-        const { read } = key;
-        const { time } = key;
-        const bookClone = bookNode.cloneNode(true);
-        // Inject input time as book id
-        bookClone.id = `book-${time.getTime().toString().slice(8)}`;
-        bookClone.classList.remove("hidden");
-        bookNode.before(bookClone);
-        InjectBookValue(author, title, pages, read, bookClone);
-    });
+const createDestroy = new CreateDestroyBooks();
+class ClickMethods {
+    sortOnClick(methodKey, sortMethod) {
+        const clickObject = clickTracker.find((item) => item.method === methodKey);
+        if (clickObject.value === true) {
+            createDestroy.removeAllBooks();
+            createDestroy.addLibrary(sortMethod);
+            createDestroy.clearInput();
+        }
+        else if (clickObject.value === false) {
+            createDestroy.removeAllBooks();
+            createDestroy.addLibrary(sortMethod.reverse());
+            createDestroy.clearInput();
+        }
+    }
+    clickInverse(methodKey) {
+        const clickObject = clickTracker.find((item) => item.method === methodKey);
+        clickObject.value = !clickObject.value;
+        clickObject.time = new Date().getTime();
+        clickTracker.sort((a, b) => a.time - b.time);
+        return clickTracker;
+    }
 }
-cancelModal.addEventListener("click", () => {
-    window.setTimeout(() => {
-        modal.close();
-        clearInput();
-    }, 70);
-});
+const clickSort = new ClickMethods();
 const clickTracker = [
     { method: "author", value: false, time: "" },
     { method: "title", value: false, time: "" },
     { method: "pages", value: false, time: "" },
     { method: "chrono", value: false, time: "" },
 ];
-function clickInverse(methodKey) {
-    const clickObject = clickTracker.find((item) => item.method === methodKey);
-    clickObject.value = !clickObject.value;
-    clickObject.time = new Date().getTime();
-    clickTracker.sort((a, b) => a.time - b.time);
-    return clickTracker;
-}
-function sortOnClick(methodKey, sortMethod) {
-    const clickObject = clickTracker.find((item) => item.method === methodKey);
-    if (clickObject.value === true) {
-        removeAllBooks();
-        addLibrary(sortMethod);
-        clearInput();
-    }
-    else if (clickObject.value === false) {
-        removeAllBooks();
-        addLibrary(sortMethod.reverse());
-        clearInput();
-    }
-}
+cancelModal.addEventListener("click", () => {
+    window.setTimeout(() => {
+        modal.close();
+        createDestroy.clearInput();
+    }, 70);
+});
 submitButton.addEventListener("click", () => {
     const { method } = clickTracker[3];
-    removeAllBooks();
-    inputToValue();
+    createDestroy.removeAllBooks();
+    const inputValue = new InputValue();
+    inputValue.inputToValue();
     if (method === "chrono") {
-        sortOnClick(method, sortTime());
+        clickSort.sortOnClick(method, sort.sortTime());
     }
     else if (method === "author") {
-        sortOnClick(method, sortAuthor());
+        clickSort.sortOnClick(method, sort.sortAuthor());
     }
     else if (method === "title") {
-        sortOnClick(method, sortTitle());
+        clickSort.sortOnClick(method, sort.sortTitle());
     }
     else if (method === "pages") {
-        sortOnClick(method, sortPages());
+        clickSort.sortOnClick(method, sort.sortPages());
     }
-    console.log(method);
-    console.log(library);
 });
-function replaceText(e) {
-    e.target.querySelector(".book-title > span").classList.add("hidden");
-    e.target
-        .querySelector(".book-title > span:nth-child(2)")
-        .classList.remove("hidden");
+class TextMethods {
+    replaceText(e) {
+        e.target.querySelector(".book-title > span").classList.add("hidden");
+        e.target
+            .querySelector(".book-title > span:nth-child(2)")
+            .classList.remove("hidden");
+    }
+    restoreText(e) {
+        e.target.querySelector(".book-title > span").classList.remove("hidden");
+        e.target
+            .querySelector(".book-title > span:nth-child(2)")
+            .classList.add("hidden");
+    }
 }
-function restoreText(e) {
-    e.target.querySelector(".book-title > span").classList.remove("hidden");
-    e.target
-        .querySelector(".book-title > span:nth-child(2)")
-        .classList.add("hidden");
+const text = new TextMethods();
+class NodeMethods {
+    bookNodeId(e) {
+        const node = e.target.parentNode.parentNode;
+        return node;
+    }
+    removeBook(e) {
+        const node = this.bookNodeId(e);
+        return node.remove();
+    }
+    // Target book index in library
+    removeFromLibrary(e) {
+        const nodeId = this.bookNodeId(e).id.slice(5);
+        library.splice(library.findIndex((item) => item.bookId === nodeId), 1);
+    }
+    // Target book values in library
+    changeReadCondition(e) {
+        const nodeId = this.bookNodeId(e).id.slice(5);
+        const book = library.find((item) => item.bookId === nodeId);
+        return book;
+    }
 }
-function bookNodeId(e) {
-    const node = e.target.parentNode.parentNode;
-    return node;
+const nodeTools = new NodeMethods();
+class ReadUnreadMethods {
+    containsRead(read) {
+        read.forEach((item) => {
+            if (item.parentNode.classList.contains("book-obscure")) {
+                readObscure = true;
+            }
+            else if (!item.parentNode.classList.contains("book-obscure")) {
+                readObscure = false;
+            }
+        });
+        return unreadObscure;
+    }
+    containsUnread(unread) {
+        unread.forEach((item) => {
+            if (item.parentNode.classList.contains("book-obscure")) {
+                unreadObscure = true;
+            }
+            else if (!item.parentNode.classList.contains("book-obscure")) {
+                unreadObscure = false;
+            }
+        });
+        return unreadObscure;
+    }
+    addObscure(readState) {
+        readState.forEach((item) => {
+            item.parentNode.classList.add("book-obscure");
+        });
+    }
+    removeObscure(readState) {
+        readState.forEach((item) => {
+            item.parentNode.classList.remove("book-obscure");
+        });
+    }
 }
-function removeBook(e) {
-    const node = bookNodeId(e);
-    return node.remove();
-}
-// Target book index in library
-function removeFromLibrary(e) {
-    const nodeId = bookNodeId(e).id.slice(5);
-    library.splice(library.findIndex((item) => item.bookId === nodeId), 1);
-}
-// Target book values in library
-function changeReadCondition(e) {
-    const nodeId = bookNodeId(e).id.slice(5);
-    const book = library.find((item) => item.bookId === nodeId);
-    return book;
-}
+const readUnreadTools = new ReadUnreadMethods();
 timeButton.addEventListener("click", () => {
     const method = "chrono";
-    clickInverse(method);
-    sortOnClick(method, sortTime());
+    clickSort.clickInverse(method);
+    clickSort.sortOnClick(method, sort.sortTime());
 });
 bookShelf.addEventListener("click", (e) => {
     if (e.target.classList.contains("author-listen")) {
         const method = "author";
-        clickInverse(method);
-        sortOnClick(method, sortAuthor());
+        clickSort.clickInverse(method);
+        clickSort.sortOnClick(method, sort.sortAuthor());
     }
 });
 bookShelf.addEventListener("click", (e) => {
     if (e.target.classList.contains("title-listen") &&
         !e.target.classList.contains("remove-book")) {
         const method = "title";
-        clickInverse(method);
-        sortOnClick(method, sortTitle());
+        clickSort.clickInverse(method);
+        clickSort.sortOnClick(method, sort.sortTitle());
     }
 });
 bookShelf.addEventListener("click", (e) => {
     if (e.target.classList.contains("page-listen")) {
         const method = "pages";
-        clickInverse(method);
-        sortOnClick(method, sortPages());
+        clickSort.clickInverse(method);
+        clickSort.sortOnClick(method, sort.sortPages());
     }
 });
 // Remove books
@@ -228,18 +279,18 @@ bookShelf.addEventListener("contextmenu", (e) => {
     // make exception for demo book so next click doesnt remove library object
     if (e.target.classList.contains("library-except") &&
         e.target.classList.contains("remove-book")) {
-        removeBook(e);
+        nodeTools.removeBook(e);
     }
     else if (e.target.classList.contains("remove-book")) {
-        removeBook(e);
-        removeFromLibrary(e);
+        nodeTools.removeBook(e);
+        nodeTools.removeFromLibrary(e);
     }
 });
 bookShelf.addEventListener("mouseover", (e) => {
     if (e.target.classList.contains("title-listen")) {
         bombTimer = setTimeout(() => {
             e.target.classList.add("remove-book");
-            replaceText(e);
+            text.replaceText(e);
         }, 900);
     }
     else {
@@ -249,7 +300,7 @@ bookShelf.addEventListener("mouseover", (e) => {
 bookShelf.addEventListener("mouseout", (e) => {
     if (e.target.classList.contains("title-listen")) {
         setTimeout(() => {
-            restoreText(e);
+            text.restoreText(e);
         }, 100);
         setTimeout(() => {
             e.target.classList.remove("remove-book");
@@ -269,68 +320,36 @@ bookShelf.addEventListener("contextmenu", (e) => {
     if (e.target.classList.contains("read")) {
         e.target.classList.remove("read");
         e.target.classList.add("unread");
-        changeReadCondition(e).read = false;
+        nodeTools.changeReadCondition(e).read = false;
     }
     else if (e.target.classList.contains("unread")) {
         e.target.classList.remove("unread");
         e.target.classList.add("read");
-        changeReadCondition(e).read = true;
+        nodeTools.changeReadCondition(e).read = true;
     }
     e.preventDefault();
     e.stopPropagation();
 });
 let unreadObscure = false;
 let readObscure = false;
-function containsRead(read) {
-    read.forEach((item) => {
-        if (item.parentNode.classList.contains("book-obscure")) {
-            readObscure = true;
-        }
-        else if (!item.parentNode.classList.contains("book-obscure")) {
-            readObscure = false;
-        }
-    });
-    return unreadObscure;
-}
-function containsUnread(unread) {
-    unread.forEach((item) => {
-        if (item.parentNode.classList.contains("book-obscure")) {
-            unreadObscure = true;
-        }
-        else if (!item.parentNode.classList.contains("book-obscure")) {
-            unreadObscure = false;
-        }
-    });
-    return unreadObscure;
-}
-function addObscure(readState) {
-    readState.forEach((item) => {
-        item.parentNode.classList.add("book-obscure");
-    });
-}
-function removeObscure(readState) {
-    readState.forEach((item) => {
-        item.parentNode.classList.remove("book-obscure");
-    });
-}
 // Obscure unread books and highlight read
 readButton.addEventListener("click", () => {
     const read = document.body.querySelectorAll(".read");
     const unread = document.body.querySelectorAll(".unread");
-    containsUnread(unread);
-    removeObscure(read);
-    addObscure(unread);
+    readUnreadTools.containsUnread(unread);
+    readUnreadTools.removeObscure(read);
+    readUnreadTools.addObscure(unread);
     if (unreadObscure === true) {
-        removeObscure(unread);
+        readUnreadTools.removeObscure(unread);
     }
 });
 unreadButton.addEventListener("click", () => {
     const read = document.body.querySelectorAll(".read");
     const unread = document.body.querySelectorAll(".unread");
-    containsRead(read);
-    addObscure(read);
-    removeObscure(unread);
+    readUnreadTools.containsRead(read);
+    readUnreadTools.addObscure(read);
+    readUnreadTools.removeObscure(unread);
     if (readObscure === true) {
-        removeObscure(read);
+        readUnreadTools.removeObscure(read);
     }
 });
